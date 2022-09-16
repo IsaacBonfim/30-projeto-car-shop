@@ -18,4 +18,4 @@ export const carZodSchema = vehicleZodSchema.merge(z.object({
   }),
 }));
 
-export type Icar = z.infer<typeof carZodSchema>;
+export type ICar = z.infer<typeof carZodSchema>;

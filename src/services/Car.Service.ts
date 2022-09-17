@@ -3,9 +3,10 @@ import { IModel } from '../interfaces/IModel';
 import { IService } from '../interfaces/IService';
 import CodeError from '../errors/CodeErrors';
 
+const message = 'Object not found';
+
 class CarService implements IService<ICar> {
   private _carModel: IModel<ICar>;
-  private _message = 'Object not found';
   
   constructor(model: IModel<ICar>) { this._carModel = model; }
 
@@ -31,7 +32,7 @@ class CarService implements IService<ICar> {
     const car = await this._carModel.readOne(id);
 
     if (!car) {
-      throw new CodeError(this._message, 404);
+      throw new CodeError(message, 404);
     }
 
     return car as ICar;
@@ -47,18 +48,20 @@ class CarService implements IService<ICar> {
     const updatedCar = await this._carModel.update(id, obj);
 
     if (!updatedCar) {
-      throw new CodeError(this._message, 404);
+      throw new CodeError(message, 404);
     }
 
-    return updatedCar;
+    return updatedCar as ICar;
   }
 
   public async delete(id: string): Promise<ICar | null> {
-    const result = await this._carModel.delete(id);
+    const car = await this._carModel.readOne(id);
 
-    if (!result) {
-      throw new CodeError(this._message, 404);
+    if (!car) {
+      throw new CodeError(message, 404);
     }
+
+    const result = await this._carModel.delete(id);
 
     return result;
   }

@@ -2,9 +2,10 @@ import { Model as MongoModel, isValidObjectId, UpdateQuery } from 'mongoose';
 import CodeError from '../errors/CodeErrors';
 import { IModel } from '../interfaces/IModel';
 
+const message = 'Id must have 24 hexadecimal characters';
+
 abstract class GenericModel<T> implements IModel<T> {
   private _model: MongoModel<T>;
-  private _message = 'Id must have 24 hexadecimal characters';
 
   constructor(model: MongoModel<T>) {
     this._model = model;
@@ -22,7 +23,7 @@ abstract class GenericModel<T> implements IModel<T> {
 
   public async readOne(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) {
-      throw new CodeError(this._message, 400);
+      throw new CodeError(message, 400);
     }
 
     return this._model.findOne({ _id: id });
@@ -30,7 +31,7 @@ abstract class GenericModel<T> implements IModel<T> {
 
   public async update(id: string, obj: Partial<T>): Promise<T | null> {
     if (!isValidObjectId(id)) {
-      throw new CodeError(this._message, 400);
+      throw new CodeError(message, 400);
     }
 
     const updatedVehicle = await this._model.findByIdAndUpdate(
@@ -44,7 +45,7 @@ abstract class GenericModel<T> implements IModel<T> {
 
   public async delete(id: string): Promise<T | null> {
     if (!isValidObjectId(id)) {
-      throw new CodeError(this._message, 400);
+      throw new CodeError(message, 400);
     }
 
     const result = await this._model.deleteOne({ _id: id });

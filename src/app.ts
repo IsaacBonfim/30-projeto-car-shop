@@ -4,7 +4,7 @@ import errors from './middlewares/Error.Middleware';
 import carsRoute from './routes/Car.routes';
 
 const app = express();
-app.use(express.json);
+app.use(express.json());
 
 app.use('/cars', carsRoute);
 

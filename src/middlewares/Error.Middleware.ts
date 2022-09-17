@@ -17,7 +17,7 @@ const errorHandler = async (
       .json({ message: err.issues[0].message });
   }
 
-  res.status(code || 500).json({ message });
+  res.status(code || 500).json({ error: message });
 };
 
 export default errorHandler;

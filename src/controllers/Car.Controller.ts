@@ -37,7 +37,7 @@ class CarController {
     const { id } = req.params;
     const result = await this._carService.delete(id);
 
-    res.status(203).json(result);
+    res.status(204).json(result);
   }
 }
 

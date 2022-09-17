@@ -4,7 +4,7 @@ import { IModel } from '../interfaces/IModel';
 
 abstract class GenericModel<T> implements IModel<T> {
   private _model: MongoModel<T>;
-  private _message = 'Invalid MongoId';
+  private _message = 'Id must have 24 hexadecimal characters';
 
   constructor(model: MongoModel<T>) {
     this._model = model;

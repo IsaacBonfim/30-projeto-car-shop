@@ -5,7 +5,7 @@ import CodeError from '../errors/CodeErrors';
 
 class CarService implements IService<ICar> {
   private _carModel: IModel<ICar>;
-  private _message = 'Vehicle not found';
+  private _message = 'Object not found';
   
   constructor(model: IModel<ICar>) { this._carModel = model; }
 
